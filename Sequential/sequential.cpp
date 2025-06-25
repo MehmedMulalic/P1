@@ -40,16 +40,6 @@ int parse_args(int argc, char **argv, unsigned int &particle_count, unsigned int
     return 1;
 }
 
-std::string readKernelFile(const std::string &fileName) {
-    std::ifstream file(fileName);
-    if (!file.is_open()) {
-        throw std::runtime_error("Failed to open kernel file: " + fileName);
-    }
-    std::ostringstream oss;
-    oss << file.rdbuf();
-    return oss.str();
-}
-
 std::vector<Particle> generate_random_particles(int num_particles, int grid_size) {
     std::vector<Particle> particles;
     particles.reserve(num_particles);
@@ -79,7 +69,6 @@ float distance(const Particle a, const Vector3D p) {
     return std::sqrt(dx*dx + dy*dy + dz*dz);
 }
 
-//* no two particles with identical position; particle and point can't have same position as well
 // U = k_e * (Ei qi/ri)
 void coulomb_energy(const std::vector<Particle> &particles, const Vector3D grid, std::vector<float> &results) {
     size_t n = particles.size();
@@ -90,8 +79,7 @@ void coulomb_energy(const std::vector<Particle> &particles, const Vector3D grid,
                 float energy = 0.0f;
                 for (size_t a = 0; a < n; ++a) {
                     float r = distance(particles[a], Vector3D(x, y, z));
-                    if (r == 0) continue;   //* skip ZeroDivision; consult with professor
-                    energy += particles[a].q / r;
+                    if (r > 0) energy += particles[a].q / r;
                 }
 
                 energy *= k_e;
@@ -103,8 +91,8 @@ void coulomb_energy(const std::vector<Particle> &particles, const Vector3D grid,
 
 int main(int argc, char* argv[]) {
 	// Parsing args
-    unsigned int particle_count = 1; //* Discuss random init
-    unsigned int grid_size = 1; //* Discussion: grid is a box
+    unsigned int particle_count = 1;
+    unsigned int grid_size = 1;
     parse_args(argc, argv, particle_count, grid_size);
     printf("Particle count: %d, Grid size: %d\n", particle_count, grid_size);
     
@@ -122,10 +110,10 @@ int main(int argc, char* argv[]) {
     std::chrono::duration<double> elapsed = end - start;
     std::cout << "Simulation completed in " << elapsed.count() << " seconds." << std::endl;
     
-    float sum = 0.0f;
-    for (int x = 0; x < results.size(); ++x) {
-        sum += results[x];
-    }
-    std::cout << "Total sum: " << sum << std::endl;
+    // float sum = 0.0f;
+    // for (int x = 0; x < results.size(); ++x) {
+    //     sum += results[x];
+    // }
+    // std::cout << "Total sum: " << sum << std::endl;
 	return 0;
 }

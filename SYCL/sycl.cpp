@@ -4,7 +4,6 @@
 #include <random>
 #include <string>
 #include <cmath>
-#include <cassert>
 #include <sycl/sycl.hpp>
 
 // Value from Wikipedia: https://en.wikipedia.org/wiki/Coulomb%27s_law [Access date: 28.05.2025.]

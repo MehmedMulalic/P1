@@ -44,7 +44,7 @@ std::string readKernelFile(const std::string &fileName) {
 
 void generate_random_particles(std::vector<float> &particles, unsigned int grid_size, unsigned int particle_count) {
     std::random_device rd;
-    std::mt19937 gen(11); // Fixed seed for predictable results
+    std::mt19937 gen(11);
     std::uniform_int_distribution<> pos_dist(0, grid_size);
     std::uniform_real_distribution<float> charge_dist(-5e-6, 5e-6);
     
@@ -90,8 +90,8 @@ int main(int argc, char* argv[]) {
         cl::Kernel kernel(program, "dcs");
 
         // Parsing args
-        unsigned int particle_count = 1; //* Discuss random init
-        unsigned int grid_size = 1; //* Discussion: grid is a box
+        unsigned int particle_count = 1;
+        unsigned int grid_size = 1;
         parse_args(argc, argv, particle_count, grid_size);
         printf("Particle count: %d, Grid size: %d\n", particle_count, grid_size);
         
@@ -111,10 +111,15 @@ int main(int argc, char* argv[]) {
         cl::Buffer energygridBuffer(context, CL_MEM_WRITE_ONLY, sizeof(float) * grid_size * grid_size);
         cl::Buffer particlesBuffer(context, CL_MEM_READ_ONLY | CL_MEM_COPY_HOST_PTR, sizeof(float) * particle_count * 4, particles.data());
 
-        kernel.setArg(0, energygridBuffer);
-        kernel.setArg(1, particlesBuffer);
-        kernel.setArg(3, particle_count);
-        kernel.setArg(4, k_e); // potencijalno u host izracunati
+        cl_int clErr;
+        clErr = kernel.setArg(0, energygridBuffer);
+        clErr |= kernel.setArg(1, particlesBuffer);
+        clErr |= kernel.setArg(3, particle_count);
+        clErr |= kernel.setArg(4, k_e);
+        if (clErr != CL_SUCCESS) {
+            std::cerr << "Failed to define kernel arguments\n";
+            return 2;
+        }
 
         // Calculation loop
         auto start = std::chrono::high_resolution_clock::now();

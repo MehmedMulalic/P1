@@ -1,0 +1,138 @@
+Particle count: 10, Grid size: 10
+Simulation completed in 0.000319501 seconds.
+Total sum: 1.62844e+07
+Particle count: 100, Grid size: 10
+Simulation completed in 0.00306812 seconds.
+Total sum: -1.53842e+07
+Particle count: 1000, Grid size: 10
+Simulation completed in 0.0299796 seconds.
+Total sum: 6.80879e+07
+Particle count: 10, Grid size: 100
+Simulation completed in 0.309299 seconds.
+Total sum: 1.74467e+09
+Particle count: 100, Grid size: 100
+Simulation completed in 3.00087 seconds.
+Total sum: -1.82744e+09
+Particle count: 1000, Grid size: 100
+Simulation completed in 29.8534 seconds.
+Total sum: 6.73107e+09
+Particle count: 10, Grid size: 1000
+Simulation completed in 309.241 seconds.
+Total sum: 1.55796e+10
+
+### NEW TEST ITERATION ###
+
+Particle count: 10, Grid size: 10
+Simulation completed in 0.000309592 seconds.
+Total sum: 1.62844e+07
+Particle count: 100, Grid size: 10
+Simulation completed in 0.00300019 seconds.
+Total sum: -1.53842e+07
+Particle count: 1000, Grid size: 10
+Simulation completed in 0.0300341 seconds.
+Total sum: 6.80879e+07
+Particle count: 10, Grid size: 100
+Simulation completed in 0.309254 seconds.
+Total sum: 1.74467e+09
+Particle count: 100, Grid size: 100
+Simulation completed in 2.99414 seconds.
+Total sum: -1.82744e+09
+Particle count: 1000, Grid size: 100
+Simulation completed in 29.8468 seconds.
+Total sum: 6.73107e+09
+Particle count: 10, Grid size: 1000
+Simulation completed in 308.822 seconds.
+Total sum: 1.55796e+10
+
+### NEW TEST ITERATION ###
+
+Particle count: 10, Grid size: 10
+Simulation completed in 0.000317216 seconds.
+Total sum: 1.62844e+07
+Particle count: 100, Grid size: 10
+Simulation completed in 0.0029838 seconds.
+Total sum: -1.53842e+07
+Particle count: 1000, Grid size: 10
+Simulation completed in 0.0302875 seconds.
+Total sum: 6.80879e+07
+Particle count: 10, Grid size: 100
+Simulation completed in 0.30981 seconds.
+Total sum: 1.74467e+09
+Particle count: 100, Grid size: 100
+Simulation completed in 3.00214 seconds.
+Total sum: -1.82744e+09
+Particle count: 1000, Grid size: 100
+Simulation completed in 29.9044 seconds.
+Total sum: 6.73107e+09
+Particle count: 10, Grid size: 1000
+Simulation completed in 309.228 seconds.
+Total sum: 1.55796e+10
+
+### CUSTOM TESTS ###
+Particle count: 1000, Grid size: 200
+Simulation completed in 238.97 seconds.
+Total sum: 2.6754e+10
+
+new optimization
+
+### NEW TEST ITERATION ###
+Particle count: 10, Grid size: 10
+Simulation completed in 2.5719e-05 seconds.
+Particle count: 100, Grid size: 10
+Simulation completed in 0.000245962 seconds.
+Particle count: 1000, Grid size: 10
+Simulation completed in 0.00242297 seconds.
+Particle count: 10, Grid size: 100
+Simulation completed in 0.0262475 seconds.
+Particle count: 100, Grid size: 100
+Simulation completed in 0.245234 seconds.
+Particle count: 1000, Grid size: 100
+Simulation completed in 2.40055 seconds.
+Particle count: 10, Grid size: 1000
+Simulation completed in 26.0805 seconds.
+Particle count: 1000, Grid size: 200
+Simulation completed in 19.199 seconds.
+
+### NEW TEST ITERATION ###
+Particle count: 10, Grid size: 10
+Simulation completed in 2.5748e-05 seconds.
+Particle count: 100, Grid size: 10
+Simulation completed in 0.000246003 seconds.
+Particle count: 1000, Grid size: 10
+Simulation completed in 0.0024799 seconds.
+Particle count: 10, Grid size: 100
+Simulation completed in 0.026511 seconds.
+Particle count: 100, Grid size: 100
+Simulation completed in 0.246464 seconds.
+Particle count: 1000, Grid size: 100
+Simulation completed in 2.39928 seconds.
+Particle count: 10, Grid size: 1000
+Simulation completed in 26.1045 seconds.
+Particle count: 1000, Grid size: 200
+Simulation completed in 19.1544 seconds.
+
+### NEW TEST ITERATION ###
+Particle count: 10, Grid size: 10
+Simulation completed in 2.5649e-05 seconds.
+Particle count: 100, Grid size: 10
+Simulation completed in 0.000246042 seconds.
+Particle count: 1000, Grid size: 10
+Simulation completed in 0.00242268 seconds.
+Particle count: 10, Grid size: 100
+Simulation completed in 0.0266301 seconds.
+Particle count: 100, Grid size: 100
+Simulation completed in 0.245703 seconds.
+Particle count: 1000, Grid size: 100
+Simulation completed in 2.40383 seconds.
+Particle count: 10, Grid size: 1000
+Simulation completed in 26.0869 seconds.
+Particle count: 1000, Grid size: 200
+Simulation completed in 19.2293 seconds.
+Particle count: 1000, Grid size: 500
+Simulation completed in 299.971 seconds.
+Particle count: 1000, Grid size: 500
+Simulation completed in 300.385 seconds.
+Particle count: 1000, Grid size: 500
+Simulation completed in 300.671 seconds.
+Particle count: 1000, Grid size: 800
+Simulation completed in 1232.24 seconds.
