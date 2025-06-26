@@ -1,32 +1,37 @@
 #include <sycl/sycl.hpp>
 #include <iostream>
+#include <chrono>
 
 int main() {
-    constexpr size_t N = 1024;
-    std::vector<int> A(N, 1);
-    std::vector<int> B(N, 2);
-    std::vector<int> C(N, 0);
+    constexpr size_t N = 1024 * 2000000;
+
+    std::vector<float> A(N, 1.0f);
+    std::vector<float> B(N, 2.0f);
+    std::vector<float> C(N, 0);
 
     sycl::queue q;
 
-    {
-        sycl::buffer<int> bufA(A.data(), N);
-        sycl::buffer<int> bufB(B.data(), N);
-        sycl::buffer<int> bufC(C.data(), N);
+    sycl::buffer<float> bufA(A.data(), N);
+    sycl::buffer<float> bufB(B.data(), N);
+    sycl::buffer<float> bufC(C.data(), N);
 
-        q.submit([&](sycl::handler& h) {
-            auto a = bufA.get_access<sycl::access::mode::read>(h);
-            auto b = bufB.get_access<sycl::access::mode::read>(h);
-            auto c = bufC.get_access<sycl::access::mode::write>(h);
+    // Calculation
+    auto start = std::chrono::high_resolution_clock::now();
 
-            h.parallel_for<class vector_add>(sycl::range<1>(N), [=](sycl::id<1> i) {
-                c[i] = a[i] + b[i];
-            });
+    q.submit([&](sycl::handler& h) {
+        auto a = bufA.get_access<sycl::access::mode::read>(h);
+        auto b = bufB.get_access<sycl::access::mode::read>(h);
+        auto c = bufC.get_access<sycl::access::mode::write>(h);
+
+        h.parallel_for(N, [=](sycl::id<1> idx) {
+            c[idx] = a[idx] + b[idx];
         });
-    } // buffers go out of scope here, data is copied back to C
+    }).wait();
 
-    // Print some results
-    std::cout << "C[0] = " << C[0] << ", C[N-1] = " << C[N-1] << "\n";
+    auto end = std::chrono::high_resolution_clock::now();
+
+    std::chrono::duration<double> elapsed = end - start;
+    std::cout << "Vector addition completed in " << elapsed.count() << " seconds." << std::endl;
 
     return 0;
 }

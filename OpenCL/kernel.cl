@@ -7,9 +7,9 @@ __kernel void dcs(__global float* restrict energygrid, __global float* restrict 
     float energy = 0.0f;
 
     for (size_t p = 0; p < atoms; p+=4) {
-        float dx = static_cast<float>(i) - particles[p];
-        float dy = static_cast<float>(j) - particles[p+1];
-        float dz = static_cast<float>(z) - particles[p+2];
+        float dx = (float)(i) - particles[p];
+        float dy = (float)(j) - particles[p+1];
+        float dz = (float)(z) - particles[p+2];
 
         float r = sqrt(dx*dx + dy*dy + dz*dz);
 
