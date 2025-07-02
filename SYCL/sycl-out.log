@@ -1,0 +1,273 @@
+### NEW TEST ITERATION ###
+
+Running on NVIDIA A100 80GB PCIe
+Particle count: 100, Grid size: 10, Method: usm
+Simulation completed in 0.00437599 seconds.
+Total sum: -1.53842e+07
+Running on NVIDIA A100 80GB PCIe
+Particle count: 1000, Grid size: 10, Method: usm
+Simulation completed in 0.00674274 seconds.
+Total sum: 6.80879e+07
+Running on NVIDIA A100 80GB PCIe
+Particle count: 10, Grid size: 100, Method: usm
+Simulation completed in 0.0294309 seconds.
+Total sum: 1.74467e+09
+Running on NVIDIA A100 80GB PCIe
+Particle count: 100, Grid size: 100, Method: usm
+Simulation completed in 0.0366372 seconds.
+Total sum: -1.82743e+09
+Running on NVIDIA A100 80GB PCIe
+Particle count: 1000, Grid size: 100, Method: usm
+Simulation completed in 0.0487319 seconds.
+Total sum: 6.73107e+09
+Running on NVIDIA A100 80GB PCIe
+Particle count: 10, Grid size: 1000, Method: usm
+Simulation completed in 5.89977 seconds.
+Total sum: 1.55796e+10
+Running on NVIDIA A100 80GB PCIe
+Particle count: 1000, Grid size: 200, Method: usm
+Simulation completed in 0.141805 seconds.
+Total sum: 2.67539e+10
+Running on NVIDIA A100 80GB PCIe
+Particle count: 1000, Grid size: 500, Method: usm
+Simulation completed in 0.751976 seconds.
+Total sum: 1.14989e+11
+Running on NVIDIA A100 80GB PCIe
+Particle count: 1000, Grid size: 800, Method: usm
+Simulation completed in 3.11771 seconds.
+Total sum: 1.10699e+11
+Running on NVIDIA A100 80GB PCIe
+Particle count: 10, Grid size: 10, Method: buffer
+Simulation completed in 0.108316 seconds.
+Total sum: 1.62844e+07
+Running on NVIDIA A100 80GB PCIe
+Particle count: 100, Grid size: 10, Method: buffer
+Simulation completed in 0.00339404 seconds.
+Total sum: -1.53842e+07
+Running on NVIDIA A100 80GB PCIe
+Particle count: 1000, Grid size: 10, Method: buffer
+Simulation completed in 0.00854453 seconds.
+Total sum: 6.80879e+07
+Running on NVIDIA A100 80GB PCIe
+Particle count: 10, Grid size: 100, Method: buffer
+Simulation completed in 0.016159 seconds.
+Total sum: 1.74467e+09
+Running on NVIDIA A100 80GB PCIe
+Particle count: 100, Grid size: 100, Method: buffer
+Simulation completed in 0.0283006 seconds.
+Total sum: -1.82743e+09
+Running on NVIDIA A100 80GB PCIe
+Particle count: 1000, Grid size: 100, Method: buffer
+Simulation completed in 0.0705184 seconds.
+Total sum: 6.73107e+09
+Running on NVIDIA A100 80GB PCIe
+Particle count: 10, Grid size: 1000, Method: buffer
+Simulation completed in 7.3913 seconds.
+Total sum: 1.55796e+10
+Running on NVIDIA A100 80GB PCIe
+Particle count: 1000, Grid size: 200, Method: buffer
+Simulation completed in 0.122624 seconds.
+Total sum: 2.67539e+10
+Running on NVIDIA A100 80GB PCIe
+Particle count: 1000, Grid size: 500, Method: buffer
+Simulation completed in 0.815429 seconds.
+Total sum: 1.14989e+11
+Running on NVIDIA A100 80GB PCIe
+Particle count: 1000, Grid size: 800, Method: buffer
+Simulation completed in 3.68967 seconds.
+Total sum: 1.10699e+11
+
+### NEW TEST ITERATION ###
+
+Running on NVIDIA A100 80GB PCIe
+Particle count: 10, Grid size: 10, Method: usm
+Simulation completed in 0.00333168 seconds.
+Total sum: 1.62844e+07
+Running on NVIDIA A100 80GB PCIe
+Particle count: 100, Grid size: 10, Method: usm
+Simulation completed in 0.00448688 seconds.
+Total sum: -1.53842e+07
+Running on NVIDIA A100 80GB PCIe
+Particle count: 1000, Grid size: 10, Method: usm
+Simulation completed in 0.00611612 seconds.
+Total sum: 6.80879e+07
+Running on NVIDIA A100 80GB PCIe
+Particle count: 10, Grid size: 100, Method: usm
+Simulation completed in 0.0274469 seconds.
+Total sum: 1.74467e+09
+Running on NVIDIA A100 80GB PCIe
+Particle count: 100, Grid size: 100, Method: usm
+Simulation completed in 0.0364618 seconds.
+Total sum: -1.82743e+09
+Running on NVIDIA A100 80GB PCIe
+Particle count: 1000, Grid size: 100, Method: usm
+Simulation completed in 0.0542726 seconds.
+Total sum: 6.73107e+09
+Running on NVIDIA A100 80GB PCIe
+Particle count: 10, Grid size: 1000, Method: usm
+Simulation completed in 6.70802 seconds.
+Total sum: 1.55796e+10
+Running on NVIDIA A100 80GB PCIe
+Particle count: 1000, Grid size: 200, Method: usm
+Simulation completed in 0.11987 seconds.
+Total sum: 2.67539e+10
+Running on NVIDIA A100 80GB PCIe
+Particle count: 1000, Grid size: 500, Method: usm
+Simulation completed in 0.951815 seconds.
+Total sum: 1.14989e+11
+Running on NVIDIA A100 80GB PCIe
+Particle count: 1000, Grid size: 800, Method: usm
+Simulation completed in 5.78519 seconds.
+Total sum: 1.10699e+11
+Running on NVIDIA A100 80GB PCIe
+Particle count: 10, Grid size: 10, Method: buffer
+Simulation completed in 0.00427082 seconds.
+Total sum: 1.62844e+07
+Running on NVIDIA A100 80GB PCIe
+Particle count: 100, Grid size: 10, Method: buffer
+Simulation completed in 0.00335295 seconds.
+Total sum: -1.53842e+07
+Running on NVIDIA A100 80GB PCIe
+Particle count: 1000, Grid size: 10, Method: buffer
+Simulation completed in 0.00493458 seconds.
+Total sum: 6.80879e+07
+Running on NVIDIA A100 80GB PCIe
+Particle count: 10, Grid size: 100, Method: buffer
+Simulation completed in 0.0234751 seconds.
+Total sum: 1.74467e+09
+Running on NVIDIA A100 80GB PCIe
+Particle count: 100, Grid size: 100, Method: buffer
+Simulation completed in 0.0202745 seconds.
+Total sum: -1.82743e+09
+Running on NVIDIA A100 80GB PCIe
+Particle count: 1000, Grid size: 100, Method: buffer
+Simulation completed in 0.0493152 seconds.
+Total sum: 6.73107e+09
+Running on NVIDIA A100 80GB PCIe
+Particle count: 10, Grid size: 1000, Method: buffer
+Simulation completed in 9.4573 seconds.
+Total sum: 1.55796e+10
+Running on NVIDIA A100 80GB PCIe
+Particle count: 1000, Grid size: 200, Method: buffer
+Simulation completed in 0.123186 seconds.
+Total sum: 2.67539e+10
+Running on NVIDIA A100 80GB PCIe
+Particle count: 1000, Grid size: 500, Method: buffer
+Simulation completed in 0.867088 seconds.
+Total sum: 1.14989e+11
+Running on NVIDIA A100 80GB PCIe
+Particle count: 1000, Grid size: 800, Method: buffer
+Simulation completed in 3.46102 seconds.
+Total sum: 1.10699e+11
+
+### NEW TEST ITERATION ###
+
+Running on NVIDIA A100 80GB PCIe
+Particle count: 10, Grid size: 10, Method: usm
+Simulation completed in 0.00378965 seconds.
+Total sum: 1.62844e+07
+Running on NVIDIA A100 80GB PCIe
+Particle count: 100, Grid size: 10, Method: usm
+Simulation completed in 0.00426678 seconds.
+Total sum: -1.53842e+07
+Running on NVIDIA A100 80GB PCIe
+Particle count: 1000, Grid size: 10, Method: usm
+Simulation completed in 0.00595446 seconds.
+Total sum: 6.80879e+07
+Running on NVIDIA A100 80GB PCIe
+Particle count: 10, Grid size: 100, Method: usm
+Simulation completed in 0.0303502 seconds.
+Total sum: 1.74467e+09
+Running on NVIDIA A100 80GB PCIe
+Particle count: 100, Grid size: 100, Method: usm
+Simulation completed in 0.0385401 seconds.
+Total sum: -1.82743e+09
+Running on NVIDIA A100 80GB PCIe
+Particle count: 1000, Grid size: 100, Method: usm
+Simulation completed in 0.059927 seconds.
+Total sum: 6.73107e+09
+Running on NVIDIA A100 80GB PCIe
+Particle count: 10, Grid size: 1000, Method: usm
+Simulation completed in 3.75275 seconds.
+Total sum: 1.55796e+10
+Running on NVIDIA A100 80GB PCIe
+Particle count: 1000, Grid size: 200, Method: usm
+Simulation completed in 0.144097 seconds.
+Total sum: 2.67539e+10
+Running on NVIDIA A100 80GB PCIe
+Particle count: 1000, Grid size: 500, Method: usm
+Simulation completed in 1.01087 seconds.
+Total sum: 1.14989e+11
+Running on NVIDIA A100 80GB PCIe
+Particle count: 1000, Grid size: 800, Method: usm
+Simulation completed in 4.02002 seconds.
+Total sum: 1.10699e+11
+Running on NVIDIA A100 80GB PCIe
+Particle count: 10, Grid size: 10, Method: buffer
+Simulation completed in 0.00417381 seconds.
+Total sum: 1.62844e+07
+Running on NVIDIA A100 80GB PCIe
+Particle count: 100, Grid size: 10, Method: buffer
+Simulation completed in 0.00234695 seconds.
+Total sum: -1.53842e+07
+Running on NVIDIA A100 80GB PCIe
+Particle count: 1000, Grid size: 10, Method: buffer
+Simulation completed in 0.00436693 seconds.
+Total sum: 6.80879e+07
+Running on NVIDIA A100 80GB PCIe
+Particle count: 10, Grid size: 100, Method: buffer
+Simulation completed in 0.0183483 seconds.
+Total sum: 1.74467e+09
+Running on NVIDIA A100 80GB PCIe
+Particle count: 100, Grid size: 100, Method: buffer
+Simulation completed in 0.0288276 seconds.
+Total sum: -1.82743e+09
+Running on NVIDIA A100 80GB PCIe
+Particle count: 1000, Grid size: 100, Method: buffer
+Simulation completed in 0.0473515 seconds.
+Total sum: 6.73107e+09
+Running on NVIDIA A100 80GB PCIe
+Particle count: 10, Grid size: 1000, Method: buffer
+Simulation completed in 4.42014 seconds.
+Total sum: 1.55796e+10
+Running on NVIDIA A100 80GB PCIe
+Particle count: 1000, Grid size: 200, Method: buffer
+Simulation completed in 0.131392 seconds.
+Total sum: 2.67539e+10
+Running on NVIDIA A100 80GB PCIe
+Particle count: 1000, Grid size: 500, Method: buffer
+Simulation completed in 0.838206 seconds.
+Total sum: 1.14989e+11
+Running on NVIDIA A100 80GB PCIe
+Particle count: 1000, Grid size: 800, Method: buffer
+Simulation completed in 6.15046 seconds.
+Total sum: 1.10699e+11
+Running on NVIDIA A100 80GB PCIe
+Particle count: 10, Grid size: 10, Method: usm
+Simulation completed in 0.00413708 seconds.
+Total sum: 1.62844e+07
+Running on NVIDIA A100 80GB PCIe
+Particle count: 100, Grid size: 10, Method: usm
+Simulation completed in 0.00383958 seconds.
+Total sum: -1.53842e+07
+Running on NVIDIA A100 80GB PCIe
+Particle count: 1000, Grid size: 10, Method: usm
+Simulation completed in 0.00654425 seconds.
+Total sum: 6.80879e+07
+Running on NVIDIA A100 80GB PCIe
+Particle count: 10, Grid size: 100, Method: usm
+Simulation completed in 0.0309023 seconds.
+Total sum: 1.74467e+09
+Running on NVIDIA A100 80GB PCIe
+Particle count: 100, Grid size: 100, Method: usm
+Simulation completed in 0.0277338 seconds.
+Total sum: -1.82743e+09
+Running on NVIDIA A100 80GB PCIe
+Particle count: 1000, Grid size: 100, Method: usm
+Simulation completed in 0.0524152 seconds.
+Total sum: 6.73107e+09
+Running on NVIDIA A100 80GB PCIe
+Particle count: 10, Grid size: 1000, Method: usm
+Simulation completed in 3.73134 seconds.
+Total sum: 1.55796e+10
+Running on NVIDIA A100 80GB PCIe

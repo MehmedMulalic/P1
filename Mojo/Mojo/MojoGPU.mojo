@@ -1,4 +1,4 @@
-from gpu import thread_idx
+from gpu import thread_idx, block_idx, block_dim
 from gpu.host import DeviceContext
 from memory import UnsafePointer
 from layout import Layout, LayoutTensor
@@ -14,8 +14,7 @@ alias qmin = SIMD[DType.float64, 1](Float32(-5e-6))
 alias qmax = SIMD[DType.float64, 1](Float32(5e-6))
 alias dtype = DType.float32
 
-# Naglasi u reportu da nisam rekreirao identicne random brojeve, ali to ne bi trebalo uticati na performance
-# Zapravo, kopiracu vrijednosti ovih random values u cpp pa cu uporediti performance
+# Naglasi u reportu da nisam rekreirao identicne random brojeve sto moze predstavljati malu deviaciju u poredenju
 fn generate_random_particles(grid_size: UInt32, pcount: UInt32, particle_matrix_size: Int) -> UnsafePointer[Float32]:
     seed(randomSeed)
     var ptr = UnsafePointer[Float32].alloc(particle_matrix_size)
@@ -29,10 +28,16 @@ fn generate_random_particles(grid_size: UInt32, pcount: UInt32, particle_matrix_
 
 def main():
     fn dcs(output: UnsafePointer[Scalar[dtype]], particles: UnsafePointer[Scalar[dtype]], particle_matrix_size: Int, z: Int, grid_size: Int):
+        var global_x = block_idx.x * block_dim.x + thread_idx.x
+        var global_y = block_idx.y * block_dim.y + thread_idx.y
+
+        if global_x >= grid_size or global_y >= grid_size:
+            return
+
         var energy: Float32 = 0.0
         for p in range(0, particle_matrix_size, 4):
-            var dx: Float32 = thread_idx.x - particles[p]
-            var dy: Float32 = thread_idx.y - particles[p+1]
+            var dx: Float32 = global_x - particles[p]
+            var dy: Float32 = global_y - particles[p+1]
             var dz: Float32 = z - particles[p+2]
 
             var r: Float32 = sqrt(dx*dx + dy*dy + dz*dz)
@@ -41,12 +46,12 @@ def main():
                 energy += particles[p+3] / r
 
         energy *= K_E
-        output[(thread_idx.y*grid_size)+thread_idx.x] = energy
+        output[(global_y*grid_size)+global_x] = energy
 
 
     # Parsing args
-    var particle_count = 5
-    var grid_size = 5
+    var particle_count = 1
+    var grid_size = 1
 
     var args = argv()
     if len(args) > 1:
@@ -66,15 +71,6 @@ def main():
     var particles: UnsafePointer[Float32] = generate_random_particles(grid_size, particle_count, particle_matrix_size)
     var energygrid: UnsafePointer[Float32] = UnsafePointer[Float32].alloc(grid_size * grid_size * grid_size)
 
-    # RNG output for C++ comparison
-    var f = open("random_numbers.out", "w")
-    for x in range(particle_matrix_size):
-        f.write(particles[x], ", ")
-        if (x+1) % 4 == 0:
-            f.write("\n")
-    f.close()
-    print("Random numbers successfully printed to output file")
-
     # Buffer allocation
     var ctx: DeviceContext = DeviceContext()
 
@@ -84,11 +80,17 @@ def main():
     var particle_buffer = ctx.enqueue_create_buffer[dtype](particle_matrix_size)
     particle_buffer.enqueue_copy_from(particles)
 
+    var block_dim = (16, 16)
+    var grid_dim = (
+        (grid_size + block_dim[0] - 1),
+        (grid_size + block_dim[1] - 1)
+    )
+
     # Calculation
     var start: UInt = monotonic()
 
     for z in range(grid_size):
-        ctx.enqueue_function[dcs](device_buffer, particle_buffer, particle_matrix_size, z, grid_size, grid_dim=1, block_dim=(grid_size, grid_size))
+        ctx.enqueue_function[dcs](device_buffer, particle_buffer, particle_matrix_size, z, grid_size, grid_dim=grid_dim, block_dim=block_dim)
         device_buffer.enqueue_copy_to(host_buffer)
         ctx.synchronize()
         parallel_memcpy[dtype](energygrid+(z*grid_size*grid_size), host_buffer.unsafe_ptr(), grid_size*grid_size)
@@ -97,8 +99,3 @@ def main():
 
     var elapsed_time: Float64 = (end-start) / 1e9
     print("Simulation completed in", elapsed_time, "seconds")
-
-    var sum: Float64 = 0.0
-    for i in range(grid_size * grid_size * grid_size):
-        sum += energygrid[i].cast[DType.float64]()
-    print("Total sum:", sum)
