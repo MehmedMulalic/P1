@@ -73,7 +73,7 @@ int main(int argc, char* argv[]) {
 
         cl::Device device = devices[0];
         cl::Context context(device);
-        cl::CommandQueue queue(context, device);
+        cl::CommandQueue queue(context, device, CL_QUEUE_PROFILING_ENABLE);
         std::string kernelSource = readKernelFile("kernel.cl");
 
         // Create program and kernel
@@ -109,7 +109,18 @@ int main(int argc, char* argv[]) {
 
         // Buffers and kernel arguments
         cl::Buffer energygridBuffer(context, CL_MEM_WRITE_ONLY, sizeof(float) * grid_size * grid_size);
-        cl::Buffer particlesBuffer(context, CL_MEM_READ_ONLY | CL_MEM_COPY_HOST_PTR, sizeof(float) * particle_count * 4, particles.data());
+        cl::Buffer particlesBuffer(context, CL_MEM_READ_ONLY, sizeof(float) * particle_count * 4);
+
+        cl::Event copyEvent;
+        queue.enqueueWriteBuffer(particlesBuffer, CL_TRUE, 0 ,sizeof(float) * particle_count * 4, particles.data(), nullptr, &copyEvent);
+        copyEvent.wait();
+        
+        cl_ulong clstart = copyEvent.getProfilingInfo<CL_PROFILING_COMMAND_START>();
+        cl_ulong clend = copyEvent.getProfilingInfo<CL_PROFILING_COMMAND_END>();
+        double timeMs = (clend - clstart) * 1e-6;
+        std::cout << "Host -> Device copy took: " << timeMs << " ms\n";
+        double datasize = (sizeof(float) * particle_count * 4) / (1000.0*1000.0);
+        std::cout << "Transferred " << datasize << "MB from host to device.\n";
 
         cl_int clErr;
         clErr = kernel.setArg(0, energygridBuffer);
@@ -124,7 +135,7 @@ int main(int argc, char* argv[]) {
         // Calculation loop
         auto start = std::chrono::high_resolution_clock::now();
 
-        for (int z = 0; z < grid_size; ++z) { //? jel ovo int
+        for (int z = 0; z < grid_size; ++z) {
             kernel.setArg(2, z);
             
             queue.enqueueNDRangeKernel(kernel, cl::NullRange, cl::NDRange(grid_size, grid_size), cl::NullRange);
