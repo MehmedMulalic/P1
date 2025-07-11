@@ -89,6 +89,18 @@ int main(int argc, char* argv[]) {
         }
         cl::Kernel kernel(program, "dcs");
 
+        // Disassembly
+        // size_t binary_size;
+        // clGetProgramInfo(program(), CL_PROGRAM_BINARY_SIZES, sizeof(size_t), &binary_size, NULL);
+
+        // std::vector<unsigned char> binary(binary_size);
+        // unsigned char* binary_ptr = binary.data();
+        // clGetProgramInfo(program(), CL_PROGRAM_BINARIES, sizeof(unsigned char*), &binary_ptr, NULL);
+
+        // std::ofstream out("kernel.ptx", std::ios::binary);
+        // out.write(reinterpret_cast<char*>(binary_ptr), binary_size);
+        // out.close();
+
         // Parsing args
         unsigned int particle_count = 1;
         unsigned int grid_size = 1;
