@@ -123,16 +123,14 @@ int main(int argc, char* argv[]) {
         cl::Buffer energygridBuffer(context, CL_MEM_WRITE_ONLY, sizeof(float) * grid_size * grid_size);
         cl::Buffer particlesBuffer(context, CL_MEM_READ_ONLY, sizeof(float) * particle_count * 4);
 
-        cl::Event copyEvent;
-        queue.enqueueWriteBuffer(particlesBuffer, CL_TRUE, 0 ,sizeof(float) * particle_count * 4, particles.data(), nullptr, &copyEvent);
-        copyEvent.wait();
-        
-        cl_ulong clstart = copyEvent.getProfilingInfo<CL_PROFILING_COMMAND_START>();
-        cl_ulong clend = copyEvent.getProfilingInfo<CL_PROFILING_COMMAND_END>();
-        double timeMs = (clend - clstart) * 1e-6;
-        std::cout << "Host -> Device copy took: " << timeMs << " ms\n";
-        double datasize = (sizeof(float) * particle_count * 4) / (1000.0*1000.0);
-        std::cout << "Transferred " << datasize << "MB from host to device.\n";
+        cl::Event hostCopyEvent;
+        queue.enqueueWriteBuffer(particlesBuffer, CL_TRUE, 0 ,sizeof(float) * particle_count * 4, particles.data(), nullptr, &hostCopyEvent);
+        hostCopyEvent.wait();
+
+        double hostCopyTime = hostCopyEvent.getProfilingInfo<CL_PROFILING_COMMAND_END>() - hostCopyEvent.getProfilingInfo<CL_PROFILING_COMMAND_START>();
+
+        std::cout << "Host -> Device copy took: " << hostCopyTime << " ns\n";
+        std::cout << "Transferred " << (sizeof(float) * particle_count * 4) / (1000.0*1000.0) << "MB from host to device.\n";
 
         cl_int clErr;
         clErr = kernel.setArg(0, energygridBuffer);
@@ -145,18 +143,29 @@ int main(int argc, char* argv[]) {
         }
 
         // Calculation loop
+        cl::Event deviceCopyEvent;
+        double deviceCopyTime = 0.0;
+
         auto start = std::chrono::high_resolution_clock::now();
 
         for (int z = 0; z < grid_size; ++z) {
             kernel.setArg(2, z);
             
             queue.enqueueNDRangeKernel(kernel, cl::NullRange, cl::NDRange(grid_size, grid_size), cl::NullRange);
-            queue.enqueueReadBuffer(energygridBuffer, CL_TRUE, 0, sizeof(float) * grid_size * grid_size, dcs_result.data() + (z * grid_size * grid_size));
+            queue.enqueueReadBuffer(energygridBuffer, CL_TRUE, 0, sizeof(float) * grid_size * grid_size, dcs_result.data() + (z * grid_size * grid_size), nullptr, &deviceCopyEvent);
+            
+            deviceCopyEvent.wait();
+            deviceCopyTime += deviceCopyEvent.getProfilingInfo<CL_PROFILING_COMMAND_END>() - deviceCopyEvent.getProfilingInfo<CL_PROFILING_COMMAND_START>();
+
             queue.finish();
         }
         
         // Finalization
         auto end = std::chrono::high_resolution_clock::now();
+
+        std::cout << "Device -> Host copy took: " << deviceCopyTime << " ns\n";
+        std::cout << "Transferred " << (sizeof(float) * grid_size * grid_size * grid_size) / (1000.0*1000.0) << "MB from device to host.\n";
+
         std::chrono::duration<double> elapsed = end - start;
         std::cout << "Simulation completed in " << elapsed.count() << " seconds." << std::endl;
 

@@ -51,8 +51,8 @@ def main():
                     energygrid[index] = energy
 
     # Parsing args
-    # var particle_count = 1
-    # var grid_size = 1
+    var particle_count = 1
+    var grid_size = 1
 
     var args = argv()
     if len(args) > 1:
@@ -65,8 +65,8 @@ def main():
         particle_count = atol(args[1])
         grid_size = atol(args[2])
 
-    # var particle_matrix_size = particle_count * 4
-    # print("Particle count: ", particle_count, ", Grid size: " , grid_size, sep="")
+    var particle_matrix_size = particle_count * 4
+    print("Particle count: ", particle_count, ", Grid size: " , grid_size, sep="")
 
     var report = benchmark.run[dcs](1, 3, 1, 50)
     var asda = time.time_function[func=dcs]()
