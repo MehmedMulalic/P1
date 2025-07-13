@@ -14,7 +14,6 @@ alias qmin = SIMD[DType.float64, 1](Float32(-5e-6))
 alias qmax = SIMD[DType.float64, 1](Float32(5e-6))
 alias dtype = DType.float32
 
-# Naglasi u reportu da nisam rekreirao identicne random brojeve sto moze predstavljati malu deviaciju u poredenju
 fn generate_random_particles(grid_size: UInt32, pcount: UInt32, particle_matrix_size: Int) -> UnsafePointer[Float32]:
     seed(randomSeed)
     var ptr = UnsafePointer[Float32].alloc(particle_matrix_size)

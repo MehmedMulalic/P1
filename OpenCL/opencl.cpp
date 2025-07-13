@@ -73,7 +73,7 @@ int main(int argc, char* argv[]) {
 
         cl::Device device = devices[0];
         cl::Context context(device);
-        cl::CommandQueue queue(context, device);
+        cl::CommandQueue queue(context, device, CL_QUEUE_PROFILING_ENABLE);
         std::string kernelSource = readKernelFile("kernel.cl");
 
         // Create program and kernel
@@ -88,6 +88,18 @@ int main(int argc, char* argv[]) {
             return 2;
         }
         cl::Kernel kernel(program, "dcs");
+
+        // Disassembly
+        // size_t binary_size;
+        // clGetProgramInfo(program(), CL_PROGRAM_BINARY_SIZES, sizeof(size_t), &binary_size, NULL);
+
+        // std::vector<unsigned char> binary(binary_size);
+        // unsigned char* binary_ptr = binary.data();
+        // clGetProgramInfo(program(), CL_PROGRAM_BINARIES, sizeof(unsigned char*), &binary_ptr, NULL);
+
+        // std::ofstream out("kernel.ptx", std::ios::binary);
+        // out.write(reinterpret_cast<char*>(binary_ptr), binary_size);
+        // out.close();
 
         // Parsing args
         unsigned int particle_count = 1;
@@ -109,7 +121,16 @@ int main(int argc, char* argv[]) {
 
         // Buffers and kernel arguments
         cl::Buffer energygridBuffer(context, CL_MEM_WRITE_ONLY, sizeof(float) * grid_size * grid_size);
-        cl::Buffer particlesBuffer(context, CL_MEM_READ_ONLY | CL_MEM_COPY_HOST_PTR, sizeof(float) * particle_count * 4, particles.data());
+        cl::Buffer particlesBuffer(context, CL_MEM_READ_ONLY, sizeof(float) * particle_count * 4);
+
+        cl::Event hostCopyEvent;
+        queue.enqueueWriteBuffer(particlesBuffer, CL_TRUE, 0 ,sizeof(float) * particle_count * 4, particles.data(), nullptr, &hostCopyEvent);
+        hostCopyEvent.wait();
+
+        double hostCopyTime = hostCopyEvent.getProfilingInfo<CL_PROFILING_COMMAND_END>() - hostCopyEvent.getProfilingInfo<CL_PROFILING_COMMAND_START>();
+
+        std::cout << "Host -> Device copy took: " << hostCopyTime << " ns\n";
+        std::cout << "Transferred " << (sizeof(float) * particle_count * 4) / (1000.0*1000.0) << "MB from host to device.\n";
 
         cl_int clErr;
         clErr = kernel.setArg(0, energygridBuffer);
@@ -122,18 +143,29 @@ int main(int argc, char* argv[]) {
         }
 
         // Calculation loop
+        cl::Event deviceCopyEvent;
+        double deviceCopyTime = 0.0;
+
         auto start = std::chrono::high_resolution_clock::now();
 
-        for (int z = 0; z < grid_size; ++z) { //? jel ovo int
+        for (int z = 0; z < grid_size; ++z) {
             kernel.setArg(2, z);
             
             queue.enqueueNDRangeKernel(kernel, cl::NullRange, cl::NDRange(grid_size, grid_size), cl::NullRange);
-            queue.enqueueReadBuffer(energygridBuffer, CL_TRUE, 0, sizeof(float) * grid_size * grid_size, dcs_result.data() + (z * grid_size * grid_size));
+            queue.enqueueReadBuffer(energygridBuffer, CL_TRUE, 0, sizeof(float) * grid_size * grid_size, dcs_result.data() + (z * grid_size * grid_size), nullptr, &deviceCopyEvent);
+            
+            deviceCopyEvent.wait();
+            deviceCopyTime += deviceCopyEvent.getProfilingInfo<CL_PROFILING_COMMAND_END>() - deviceCopyEvent.getProfilingInfo<CL_PROFILING_COMMAND_START>();
+
             queue.finish();
         }
         
         // Finalization
         auto end = std::chrono::high_resolution_clock::now();
+
+        std::cout << "Device -> Host copy took: " << deviceCopyTime << " ns\n";
+        std::cout << "Transferred " << (sizeof(float) * grid_size * grid_size * grid_size) / (1000.0*1000.0) << "MB from device to host.\n";
+
         std::chrono::duration<double> elapsed = end - start;
         std::cout << "Simulation completed in " << elapsed.count() << " seconds." << std::endl;
 
