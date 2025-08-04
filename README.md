@@ -9,5 +9,7 @@
 After cloning the repository, run the install script which installs all requirements and runs builds the project.
 
 ```bash
-git clone https://github.com/MehmedMulalic/P1.git
+git clone https://github.com/MehmedMulalic/P1.git ~/P1
+chmod +x ~/P1/install.sh && ~/P1/install.sh
 ./install.sh
+```
