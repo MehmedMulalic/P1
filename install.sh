@@ -169,8 +169,9 @@ mkdir build && cd build
 x86_64-conda-linux-gnu-g++ ../src/Sequential/sequential.cpp -O3 -o ./sequential
 x86_64-conda-linux-gnu-g++ -I$HOME/.local/cuda-12.8.1/targets/x86_64-linux/include -L$HOME/.local/cuda-12.8.1/lib64 -lOpenCL ../src/OpenCL/opencl.cpp -O3 -o ./opencl
 acpp ../src/SYCL/sycl.cpp -O3 -o ./sycl
-acpp ../src/SYCL/sycp.cpp -O3 -DBUFFER -o ./sycl_buffer
+acpp ../src/SYCL/sycl.cpp -O3 -DBUFFER -o ./sycl_buffer
 pixi init mojo -c https://conda.modular.com/max-nightly/ -c conda-forge
 cd mojo
 pixi add modular
 pixi run mojo build $HOME/P1/src/Mojo/MojoGPU.mojo
+echo -e "\e[33mFinished building files\e[0m"
