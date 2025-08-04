@@ -18,7 +18,7 @@ chmod +x ~/P1/install.sh
 
 ## Usage
 
-There are five executables which have the same argument parsing usage:
+There are five executables which have the same argument parsing usage:  
 Usage (positive particle_count, positive grid_size): <particle_count>, <grid_size>
 
 The default values for atom count and grid mesh size is (1, 1) but they can be changed if parsed with the described usage.
