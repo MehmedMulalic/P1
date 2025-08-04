@@ -1,0 +1,2 @@
+#!/bin/bash
+x86_64-conda-linux-gnu-g++ "$@"
