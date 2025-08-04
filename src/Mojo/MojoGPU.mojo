@@ -54,7 +54,7 @@ def main():
 
     var args = argv()
     if len(args) > 1:
-        if len(args) > 3 or len(args) == 2:
+        if len(args) != 3:
             print("Usage (positive values): <particle_count>, <grid_size>")
             exit(1)
         if atol(args[1]) < 1 or atol(args[2]) < 1:

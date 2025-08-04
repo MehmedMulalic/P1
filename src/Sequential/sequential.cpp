@@ -26,7 +26,7 @@ int parse_args(int argc, char **argv, unsigned int &particle_count, unsigned int
 	if (argc == 1) return 0;
 	std::string usage("Usage (positive particle_count, positive grid_size): <particle_count>, <grid_size>");
 
-	if (argc > 3) {
+	if (argc != 3) {
 		std::cout << usage << std::endl;
 		exit(-1);
 	}
